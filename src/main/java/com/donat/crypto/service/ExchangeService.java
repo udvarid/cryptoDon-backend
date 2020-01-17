@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,7 @@ public class ExchangeService {
         List<CurrencyPair> currencyPairs = new ArrayList<>();
         currencyPairs.add(CurrencyPair.BTC_USD);
         currencyPairs.add(CurrencyPair.ETH_USD);
-        currencyPairs.add(CurrencyPair.NEO_USD);
+        currencyPairs.add(CurrencyPair.XMR_USD);
         currencyPairs.add(CurrencyPair.LTC_USD);
         currencyPairs.add(CurrencyPair.DASH_USD);
         return currencyPairs;
@@ -53,8 +54,7 @@ public class ExchangeService {
     }
 
     private void fillDataBase(List<KrakenOHLC> ohlCs, CurrencyPair currencyPair) {
-        //TODO ezt kicserélni egy adatbázisból kiszedett, a currency pair-hoz tartozó utolsó dátum lekéréssel
-        LocalDateTime finalDate = LocalDateTime.now();
+        LocalDateTime finalDate = candleRepository.giveLatestCandle(currencyPair.toString());
         for (KrakenOHLC ohlC : ohlCs) {
             if (newCandle(ohlC.getTime(), finalDate)) {
                 Candle candle = createCandleEntity(currencyPair, ohlC);
@@ -65,9 +65,10 @@ public class ExchangeService {
 
     private Candle createCandleEntity(CurrencyPair currencyPair, KrakenOHLC ohlC) {
         Candle candle = new Candle();
-        //TODO itt a time-ból csinálni Localdate-t
         Date datum = new Date(ohlC.getTime() * 1000);
-        candle.setTime(LocalDateTime.now());
+        candle.setTime(datum.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime());
         candle.setCurrencyPair(currencyPair.toString());
         candle.setClose(ohlC.getClose().doubleValue());
         candle.setOpen(ohlC.getOpen().doubleValue());
@@ -80,7 +81,10 @@ public class ExchangeService {
     }
 
     private boolean newCandle(long time, LocalDateTime finalDate) {
-        //TODO localDatetime-ot csinálni és összehasonlítani a finalDate-el
-        return true;
+        Date datum = new Date(time * 1000);
+        LocalDateTime actualDateTime = datum.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        return actualDateTime.isAfter(finalDate);
     }
 }

@@ -30,7 +30,6 @@ public class UserController {
         return new ResponseEntity(HttpStatus.OK);
     }
 
-    //TODO session rotate és Csrf token bekötése
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody UserLoginDto userLoginDto, HttpServletRequest request) {
         userService.login(userLoginDto, request);
