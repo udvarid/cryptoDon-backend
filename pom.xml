@@ -37,7 +37,11 @@
 			<artifactId>postgresql</artifactId>
 			<version>42.2.9</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.graphql-java</groupId>
+			<artifactId>graphql-java</artifactId>
+			<version>2020-01-17T02-41-10-578985f</version>
+		</dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
