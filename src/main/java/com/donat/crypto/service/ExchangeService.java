@@ -85,6 +85,6 @@ public class ExchangeService {
         LocalDateTime actualDateTime = datum.toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDateTime();
-        return actualDateTime.isAfter(finalDate);
+        return finalDate == null || actualDateTime.isAfter(finalDate);
     }
 }
