@@ -1,0 +1,19 @@
+schema{
+ query:Query
+}
+type Query{
+  candleHistory(currencyPair: String,
+             lastNumberOfCandles: Int?): [Candle],
+  actualCandles: [Candle]
+}
+type Candle{
+  currencyPair:String
+  time:String
+  open:Float
+  close:Float
+  low:Float
+  high:Float
+  volume:Float
+  vwap:Float
+  count:Int
+}
