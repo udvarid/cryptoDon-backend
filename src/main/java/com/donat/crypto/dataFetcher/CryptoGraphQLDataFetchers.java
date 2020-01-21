@@ -1,7 +1,9 @@
 package com.donat.crypto.dataFetcher;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import com.donat.crypto.domain.Candle;
 import com.donat.crypto.repository.CandleRepository;
 import graphql.schema.DataFetcher;
 
@@ -14,7 +16,7 @@ public class CryptoGraphQLDataFetchers {
 		this.candleRepository = candleRepository;
 	}
 
-	public DataFetcher getCandles() {
+	public DataFetcher<List<Candle>> getCandles() {
 		return dataFetchingEnvironment -> {
 			String currencyPair = dataFetchingEnvironment.getArgument("currencyPair");
 			Integer lastNumber = dataFetchingEnvironment.getArgument("lastNumberOfCandles");
@@ -22,7 +24,7 @@ public class CryptoGraphQLDataFetchers {
 		};
 	}
 
-	public DataFetcher getRecentCandles() {
+	public DataFetcher<List<Candle>> getRecentCandles() {
 		return dataFetchingEnvironment ->
 			candleRepository.getRecentCurrencyPairs();
 		}
