@@ -2,7 +2,9 @@ package com.donat.crypto.controller;
 
 import javax.transaction.Transactional;
 
+import graphql.ExecutionInput;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,9 +33,13 @@ public class ExchangeController {
 		exchangeService.getCandles();
 	}
 
-	@PostMapping
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Object> getCandleData(@RequestBody QueryData query) {
-		ExecutionResult execute = graphQLService.getGraphQL().execute(query.getQuery());
+		ExecutionInput input = ExecutionInput.newExecutionInput().
+				query(query.getQuery()).
+				variables(query.getVariables()).
+				build();
+		ExecutionResult execute = graphQLService.getGraphQL().execute(input);
 		return new ResponseEntity<>(execute, HttpStatus.OK);
 	}
 
