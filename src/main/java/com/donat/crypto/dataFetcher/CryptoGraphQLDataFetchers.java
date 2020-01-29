@@ -20,6 +20,7 @@ public class CryptoGraphQLDataFetchers {
 		return dataFetchingEnvironment -> {
 			String currencyPair = dataFetchingEnvironment.getArgument("currencyPair");
 			Integer lastNumber = dataFetchingEnvironment.getArgument("lastNumberOfCandles");
+			Integer periodLength = dataFetchingEnvironment.getArgument("periodLength");
 			return candleRepository.getAllByCurrencyPair(currencyPair, lastNumber == null ? 5 * 96: lastNumber);
 		};
 	}

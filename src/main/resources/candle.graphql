@@ -3,7 +3,8 @@ schema{
 }
 type Query{
   candleHistory(currencyPair: String,
-             lastNumberOfCandles: Int): [Candle],
+                lastNumberOfCandles: Int,
+                periodLength: Int): [Candle],
   actualCandles: [Candle]
 }
 type Candle{
