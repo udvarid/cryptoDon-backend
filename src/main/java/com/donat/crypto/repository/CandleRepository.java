@@ -15,7 +15,7 @@ public interface CandleRepository extends JpaRepository<Candle, Long> {
     LocalDateTime giveLatestCandle(String currencyPair);
 
     @Query(value = "SELECT c.* FROM candles as c WHERE c.currency_pair = ?1 "
-        + "ORDER BY c.time DESC LIMIT ?2",
+        + "ORDER BY c.time ASC LIMIT ?2",
         nativeQuery = true)
     List<Candle> getAllByCurrencyPair(String currencyPair, Integer lastNumber);
 
