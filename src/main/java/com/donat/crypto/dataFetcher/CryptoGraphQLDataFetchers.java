@@ -44,7 +44,7 @@ public class CryptoGraphQLDataFetchers {
 			if (isPeriodBegin(candle.getTime(), periodLength)) {
 				alreadyStarted = true;
 				newCandle = creatingNewCandle(candle);
-			} else if (!alreadyStarted) {
+			} else if (alreadyStarted) {
 				fillingUpNewCandle(newCandle, candle);
 			}
 			if (isPeriodEnd(candle.getTime(), periodLength) && alreadyStarted) {
@@ -89,8 +89,8 @@ public class CryptoGraphQLDataFetchers {
 			candle.getVwap() * candle.getVolume()) / (newCandle.getVolume() + candle.getVolume()));
 		newCandle.setVolume(newCandle.getVolume() + candle.getVolume());
 		newCandle.setCount(newCandle.getCount() + candle.getCount());
-		newCandle.setLow(candle.getLow() < newCandle.getLow() ? candle.getLow() : newCandle.getLow());
-		newCandle.setHigh(candle.getHigh() > newCandle.getHigh() ? candle.getHigh() : newCandle.getHigh());
+		newCandle.setLow(Math.min(candle.getLow(), newCandle.getLow()));
+		newCandle.setHigh(Math.max(candle.getHigh(), newCandle.getHigh()));
 		newCandle.setClose(candle.getClose());
 	}
 
