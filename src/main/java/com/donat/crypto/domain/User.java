@@ -5,7 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -35,5 +37,8 @@ public class User {
             inverseJoinColumns = {@JoinColumn(name = "role_id")}
     )
     private List<Role> roles = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Wallet> wallets = new HashSet<>();
 
 }

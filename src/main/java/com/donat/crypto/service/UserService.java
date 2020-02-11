@@ -2,6 +2,7 @@ package com.donat.crypto.service;
 
 import com.donat.crypto.domain.Role;
 import com.donat.crypto.domain.User;
+import com.donat.crypto.domain.Wallet;
 import com.donat.crypto.dto.RegisterDto;
 import com.donat.crypto.dto.UserDto;
 import com.donat.crypto.dto.UserLoginDto;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @Transactional
@@ -31,18 +34,22 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
+    private WalletService walletService;
     private final SecurityService securityService;
     private final AuthenticationProvider authenticationProvider;
 
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,
                        RoleRepository roleRepository,
-                       SecurityService securityService, AuthenticationProvider authenticationProvider) {
+                       SecurityService securityService,
+                       AuthenticationProvider authenticationProvider,
+                       WalletService walletService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
         this.securityService = securityService;
         this.authenticationProvider = authenticationProvider;
+        this.walletService = walletService;
     }
 
     @Override
@@ -80,8 +87,23 @@ public class UserService implements UserDetailsService {
         newUser.setEnabled(true);
         newUser.setTimeOfRegistration(LocalDateTime.now());
 
+        Set<Wallet> wallets = initWallets(2000d);
+        newUser.setWallets(wallets);
+
         userRepository.saveAndFlush(newUser);
     }
+
+    private Set<Wallet> initWallets(double usd) {
+        Set<Wallet> wallets = new HashSet<>();
+        wallets.add(walletService.createWallet("USD", 2000d));
+        wallets.add(walletService.createWallet("BTC", 0d));
+        wallets.add(walletService.createWallet("ETH", 0d));
+        wallets.add(walletService.createWallet("XMR", 0d));
+        wallets.add(walletService.createWallet("LTC", 0d));
+        wallets.add(walletService.createWallet("DASH", 0d));
+        return wallets;
+    }
+
 
 
     public void login(UserLoginDto userLoginDto, HttpServletRequest request) {

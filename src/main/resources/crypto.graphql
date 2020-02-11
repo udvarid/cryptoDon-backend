@@ -5,7 +5,8 @@ type Query{
   candleHistory(currencyPair: String,
                 lastNumberOfCandles: Int,
                 periodLength: Int): [Candle],
-  actualCandles: [Candle]
+  actualCandles: [Candle],
+  user(id: Int): User
 }
 type Candle{
   currencyPair:String
@@ -17,4 +18,13 @@ type Candle{
   volume:Float
   vwap:Float
   count:Int
+}
+type User{
+  id:Int
+  fullname:String
+  wallets:[Wallet]
+}
+type Wallet{
+  ccy:String
+  amount:Float
 }
