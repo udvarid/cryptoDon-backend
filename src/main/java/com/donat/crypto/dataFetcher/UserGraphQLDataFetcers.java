@@ -19,8 +19,8 @@ public class UserGraphQLDataFetcers {
 
     public DataFetcher getUser() {
         return dataFetchingEnvironment -> {
-            Long id = dataFetchingEnvironment.getArgument("id");
-            return userRepository.findById(id);
+            Integer id = dataFetchingEnvironment.getArgument("id");
+            return userRepository.findById(id.longValue());
         };
     }
 }
