@@ -20,6 +20,9 @@ public class Wallet {
     @Column(name = "amount")
     private Double amount;
 
+    //TODO tól/ig érvényesség dátum bevezetése, hogy a vagyon alakulását lehessen követni
+    //Ezt kezelni kell majd a repo szinten is természetesen
+
     public Wallet() {
     }
 
