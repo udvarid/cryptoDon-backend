@@ -1,5 +1,6 @@
 package com.donat.crypto.events;
 
+import com.donat.crypto.events.enums.IndicatorType;
 import lombok.Data;
 
 @Data
