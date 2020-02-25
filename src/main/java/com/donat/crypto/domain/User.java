@@ -1,5 +1,6 @@
 package com.donat.crypto.domain;
 
+import com.donat.crypto.events.Event;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -38,7 +39,10 @@ public class User {
     )
     private List<Role> roles = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     private Set<Wallet> wallets = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private Set<Event> event = new HashSet<>();
 
 }
