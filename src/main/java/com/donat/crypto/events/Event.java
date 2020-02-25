@@ -2,6 +2,7 @@ package com.donat.crypto.events;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.donat.crypto.domain.User;
 import com.donat.crypto.events.enums.CCY;
 import com.donat.crypto.events.enums.TransactionType;
 import lombok.Data;
@@ -17,6 +18,9 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
 
 	@Enumerated(EnumType.STRING)
 	private CCY ccy;
