@@ -22,4 +22,23 @@ public class Action {
 
     @Enumerated(EnumType.STRING)
     private RelationType relation;
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
+
+		Action action = (Action) o;
+
+		return id != null ? id.equals(action.id) : action.id == null;
+	}
+
+	@Override
+	public int hashCode() {
+		return id != null ? id.hashCode() : 0;
+	}
 }
