@@ -8,7 +8,6 @@ import com.donat.crypto.events.enums.TransactionType;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "events")
@@ -16,10 +15,11 @@ import javax.validation.constraints.NotNull;
 public class Event {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "event_generator")
+	@SequenceGenerator(name = "event_generator", sequenceName = "event_seq")
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
 	private User user;
 
 	@Enumerated(EnumType.STRING)
@@ -31,6 +31,7 @@ public class Event {
 	private Double amount;
 
 	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "event_id")
 	private List<Actions> actionLists = new ArrayList<>();
 
 	private boolean onlyFullAmount = false;
@@ -55,4 +56,5 @@ public class Event {
 	public int hashCode() {
 		return id != null ? id.hashCode() : 0;
 	}
+
 }

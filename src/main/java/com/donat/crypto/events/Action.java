@@ -11,13 +11,14 @@ import javax.persistence.*;
 public class Action {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "action_generator")
+	@SequenceGenerator(name = "action_generator", sequenceName = "action_seq")
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private Indicator indicatorOne;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private Indicator indicatorTwo;
 
     @Enumerated(EnumType.STRING)

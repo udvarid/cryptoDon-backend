@@ -11,7 +11,8 @@ import javax.persistence.*;
 public class Indicator {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "indicator_generator")
+    @SequenceGenerator(name = "indicator_generator", sequenceName = "indicator_seq")
     private Long id;
 
     @Enumerated(EnumType.STRING)

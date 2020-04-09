@@ -14,6 +14,8 @@ import org.springframework.web.filter.CorsFilter;
 @EnableScheduling
 public class CryptoApplication {
 
+	//TODO az összes EAGER fetchtype-ot kiszedni és Fetch Join JPQL-ekkel kezelni https://vladmihalcea.com/the-best-way-to-handle-the-lazyinitializationexception/
+
 	public static void main(String[] args) {
 		SpringApplication.run(CryptoApplication.class, args);
 	}

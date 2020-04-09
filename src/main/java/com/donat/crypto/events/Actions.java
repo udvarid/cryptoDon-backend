@@ -12,10 +12,12 @@ import javax.persistence.*;
 public class Actions {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "actions_generator")
+	@SequenceGenerator(name = "actions_generator", sequenceName = "actions_seq")
 	private Long id;
 
 	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "actionlist_id")
 	List<Action> actionsAnd = new ArrayList<>();
 
 	@Override

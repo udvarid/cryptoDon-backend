@@ -3,6 +3,8 @@ package com.donat.crypto.domain;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 @Entity
@@ -11,10 +13,13 @@ import java.util.Objects;
 public class Wallet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_generator")
+    @SequenceGenerator(name = "wallet_generator", sequenceName = "wallet_seq")
     private Long id;
 
-    @Column(name = "ccy", length = 10, nullable = false)
+    @NotNull
+    @Size(max=10)
+    @Column(name = "ccy")
     private String ccy;
 
     @Column(name = "amount")

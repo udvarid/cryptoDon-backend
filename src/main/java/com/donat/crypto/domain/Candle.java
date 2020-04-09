@@ -6,7 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -15,12 +18,15 @@ import lombok.Data;
 public class Candle {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "candle_generator")
+	@SequenceGenerator(name = "candle_generator", sequenceName = "candle_seq")
 	private Long id;
 
 	private LocalDateTime time;
 
-	@Column(name = "currency_pair", length = 50, nullable = false)
+	@NotNull
+	@Size(max=50)
+	@Column(name = "currency_pair")
 	private String currencyPair;
 
 	private double open;

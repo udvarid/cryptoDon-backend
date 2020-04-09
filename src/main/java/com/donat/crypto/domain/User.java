@@ -4,10 +4,10 @@ import com.donat.crypto.events.Event;
 import lombok.Data;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,35 +15,41 @@ import java.util.Set;
 @Data
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_generator")
+	@SequenceGenerator(name = "user_generator", sequenceName = "user_seq")
+	private Long id;
 
-    @Column(name = "email", length = 250, unique = true, nullable = false)
-    private String email;
+	@NotNull
+	@Size(max = 250)
+	@Column(name = "email", unique = true)
+	private String email;
 
-    @Column(name = "password", length = 250, nullable = false)
-    private String password;
+	@NotNull
+	@Size(max = 250)
+	@Column(name = "password")
+	private String password;
 
-    private String fullname;
+	private String fullname;
 
-    private boolean enabled;
+	private boolean enabled;
 
-    private LocalDateTime timeOfRegistration;
+	private LocalDateTime timeOfRegistration;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private List<Role> roles = new ArrayList<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+		name = "users_roles",
+		joinColumns = {@JoinColumn(name = "user_id")},
+		inverseJoinColumns = {@JoinColumn(name = "role_id")}
+	)
+	private Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Wallet> wallets = new HashSet<>();
+	@ManyToMany(fetch = FetchType.EAGER)
+	private Set<Wallet> wallets = new HashSet<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private Set<Event> event = new HashSet<>();
+	@OneToMany
+	@JoinColumn(name = "user_id")
+	private Set<Event> events = new HashSet<>();
 
 	@Override
 	public boolean equals(Object o) {

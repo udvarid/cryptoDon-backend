@@ -38,8 +38,11 @@ public class StartingTasks {
 
     @PostConstruct
     void runMe() {
-        User user = userRepository.findByEmail("udvarid@hotmail.com");
-
+//        User user = userRepository.findByEmailAndFetched("udvarid@hotmail.com");
+//        if (user == null) {
+//            return;
+//        }
+//
 //        Indicator indicatorOne = createIndicator(IndicatorType.STATIC_PRICE, 500d);
 //        Indicator indicatorTwo = createIndicator(IndicatorType.CALC_ACTUAL_PRICE, 0d);
 //        Indicator indicatorThree = createIndicator(IndicatorType.STATIC_PRICE, 400d);
@@ -66,13 +69,14 @@ public class StartingTasks {
 //        event.setAmount(20d);
 //        event.setCcy(CCY.ETH);
 //        event.setTransactionType(TransactionType.BUY);
+//
+//        event.setUser(user);
 //        eventRepository.saveAndFlush(event);
 //
-//        user.getEvent().add(event);
-//
+//        user.getEvents().add(event);
 //        userRepository.saveAndFlush(user);
-
-        System.out.println(user != null ? user.getFullname() : "No such user");
+//
+//        System.out.println(user.getFullname());
     }
 
     @NotNull
