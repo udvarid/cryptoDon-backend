@@ -19,6 +19,7 @@ public class Event {
 	@SequenceGenerator(name = "event_generator", sequenceName = "event_seq")
 	private Long id;
 
+	//TODO ezt később LAZY-re állítani és csak akkor fetch-elni, ha egy akciót végre kell hajtani
 	@ManyToOne
 	private User user;
 
