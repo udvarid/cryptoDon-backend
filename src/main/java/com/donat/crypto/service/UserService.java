@@ -85,7 +85,6 @@ public class UserService implements UserDetailsService {
         Role role = roleRepository.findByRole("ROLE_USER");
         newUser.getRoles().add(role);
         newUser.setEnabled(true);
-        newUser.setTimeOfRegistration(LocalDateTime.now());
 
         Set<Wallet> wallets = initWallets(2000d);
         newUser.setWallets(wallets);

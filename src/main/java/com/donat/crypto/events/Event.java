@@ -1,5 +1,6 @@
 package com.donat.crypto.events;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import com.donat.crypto.domain.User;
@@ -8,6 +9,7 @@ import com.donat.crypto.events.enums.TransactionType;
 import lombok.Data;
 
 import javax.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "events")
@@ -30,6 +32,9 @@ public class Event {
 	private TransactionType transactionType;
 
 	private Double amount;
+
+	@CreationTimestamp
+	private LocalDateTime created;
 
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name = "event_id")

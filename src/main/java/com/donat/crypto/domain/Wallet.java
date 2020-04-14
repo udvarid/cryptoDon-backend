@@ -5,7 +5,9 @@ import lombok.Data;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.Objects;
+import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name = "wallets")
@@ -24,6 +26,9 @@ public class Wallet {
 
     @Column(name = "amount")
     private Double amount;
+
+    @UpdateTimestamp
+    private LocalDateTime lastUpdate;
 
     //TODO tól/ig érvényesség dátum bevezetése, hogy a vagyon alakulását lehessen követni
     //Ezt kezelni kell majd a repo szinten is természetesen

@@ -38,6 +38,8 @@ public class StartingTasks {
 
     @PostConstruct
     void runMe() {
+        //TODO Az event létrehozásnál legyen Cascadetype = Persist
+        //TODO legyen egy Builder/Factory az Eventre
 //        User user = userRepository.findByEmailAndFetched("udvarid@hotmail.com");
 //        if (user == null) {
 //            return;
