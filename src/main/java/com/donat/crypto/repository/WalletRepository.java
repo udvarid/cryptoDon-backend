@@ -7,4 +7,6 @@ import javax.transaction.Transactional;
 
 @Transactional
 public interface WalletRepository extends JpaRepository<Wallet, Long> {
+
+	//@Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)
 }

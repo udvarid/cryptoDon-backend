@@ -30,6 +30,10 @@ public class Wallet {
     @UpdateTimestamp
     private LocalDateTime lastUpdate;
 
+    @Version
+    @Column(name = "version")
+    private long version;
+
     //TODO tól/ig érvényesség dátum bevezetése, hogy a vagyon alakulását lehessen követni
     //Ezt kezelni kell majd a repo szinten is természetesen
 

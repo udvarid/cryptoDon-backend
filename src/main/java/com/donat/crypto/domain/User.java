@@ -35,6 +35,12 @@ public class User {
 
 	private boolean enabled;
 
+	@Version
+	@Column(name = "version")
+	private long version;
+
+	private long failedLoginAttempts = 0;
+
 	@CreationTimestamp
 	private LocalDateTime timeOfRegistration;
 

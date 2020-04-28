@@ -21,8 +21,7 @@ public class Event {
 	@SequenceGenerator(name = "event_generator", sequenceName = "event_seq")
 	private Long id;
 
-	//TODO ezt később LAZY-re állítani és csak akkor fetch-elni, ha egy akciót végre kell hajtani
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	private User user;
 
 	@Enumerated(EnumType.STRING)
@@ -43,6 +42,10 @@ public class Event {
 	private boolean onlyFullAmount = false;
 
 	private boolean fullFilled = false;
+
+	@Version
+	@Column(name = "version")
+	private long version;
 
 	@Override
 	public boolean equals(Object o) {
