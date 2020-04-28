@@ -26,6 +26,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -123,5 +124,10 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     @Override
     public User saveOrUpdate(User user) {
         return userRepository.saveAndFlush(user);
+    }
+
+    @Override
+    public List<User> listAll() {
+        return userRepository.findAll();
     }
 }

@@ -1,5 +1,6 @@
 package com.donat.crypto.service;
 
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import com.donat.crypto.domain.User;
 import com.donat.crypto.dto.RegisterDto;
@@ -12,4 +13,5 @@ public interface UserService {
 	UserDto getOneUser(String email);
 	User findByEmail(String email);
 	User saveOrUpdate(User user);
+	List<User> listAll();
 }

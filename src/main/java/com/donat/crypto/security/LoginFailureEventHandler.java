@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 import com.donat.crypto.domain.User;
 import com.donat.crypto.service.UserService;
 
-/**
- * Created by jt on 1/6/16.
- */
 @Component
 public class LoginFailureEventHandler implements ApplicationListener<LoginFailureEvent> {
 
