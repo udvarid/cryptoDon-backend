@@ -7,9 +7,7 @@ import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 
 import javax.persistence.LockModeType;
-import javax.transaction.Transactional;
 
-@Transactional
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
     @Lock(LockModeType.OPTIMISTIC_FORCE_INCREMENT)

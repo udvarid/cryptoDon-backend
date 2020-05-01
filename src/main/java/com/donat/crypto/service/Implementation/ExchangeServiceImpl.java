@@ -7,6 +7,7 @@ import org.knowm.xchange.kraken.KrakenExchange;
 import org.knowm.xchange.kraken.dto.marketdata.KrakenOHLC;
 import org.knowm.xchange.kraken.service.KrakenMarketDataServiceRaw;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -19,6 +20,7 @@ import com.donat.crypto.repository.CandleRepository;
 import com.donat.crypto.service.ExchangeService;
 
 @Service
+@Transactional
 public class ExchangeServiceImpl implements ExchangeService {
 
     private CandleRepository candleRepository;

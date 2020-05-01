@@ -7,11 +7,13 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import com.donat.crypto.domain.Candle;
 import com.donat.crypto.repository.CandleRepository;
 import graphql.schema.DataFetcher;
 
 @Component
+@Transactional
 public class CryptoGraphQLDataFetchers {
 
 	private CandleRepository candleRepository;

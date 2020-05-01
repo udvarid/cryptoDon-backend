@@ -4,8 +4,8 @@ import com.donat.crypto.domain.Wallet;
 import com.donat.crypto.repository.WalletRepository;
 import com.donat.crypto.service.WalletService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 
 @Service
 @Transactional
